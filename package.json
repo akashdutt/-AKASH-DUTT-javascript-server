@@ -1,0 +1,21 @@
+{
+  "name": "express-server",
+  "version": "1.0.0",
+  "description": "testing functionalities",
+  "main": "index.js",
+  "scripts": {
+    "pattern:diamond": "nodemon extra/pattern/diamond.js" ,
+    "pattern:equilateral": "nodemon extra/pattern/equilateral.js" ,
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akashdutt/javascript-server.git"
+  },
+  "author": "AKASH DUTT",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akashdutt/javascript-server/issues"
+  },
+  "homepage": "https://github.com/akashdutt/javascript-server#readme"
+}
