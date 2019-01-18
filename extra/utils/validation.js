@@ -1,23 +1,6 @@
-const users = [{
-    traineeEmail: 'trainee1@successive.tech',
-    reviewerEmail: 'reviewer1@successive.tech',
-},
-{
-    traineeEmail: 'akash@successive.com',
-    reviewerEmail: 'akash@google.com'
-},
-{
-    traineeEmail: 'akashdutt@successive.tech',
-    reviewerEmail: 'akash@gmail.tech'
-}
-]
+import validateEmail from './helpers'
 
-function validateEmail(email) {
-let regex = /^[A-Za-z0-9._%+-]+@successive.tech$/
-return regex.test(email)
-}
-
-function validateUsers(users) {
+export default function validateUsers(users) {
 let validCount = 0;
 let invalidCount = 0;
 users.forEach(element => {
@@ -46,4 +29,3 @@ users.forEach(element => {
 console.log('total valid emails are', validCount)
 console.log('total invalid emails are', invalidCount)
 }
-validateUsers(users);
