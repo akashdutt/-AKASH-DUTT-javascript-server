@@ -1,11 +1,13 @@
 {
   "name": "javascript-server",
   "version": "1.0.0",
-  "description": "39517 ticket ",
+  "description": "testing functionalities",
   "main": "index.js",
   "scripts": {
     "validation":"node extra/utils/validation.js",
     "permissions":"node extra/utils/permissions.js",
+    "pattern:diamond": "nodemon extra/pattern/diamond.js" ,
+    "pattern:equilateral": "nodemon extra/pattern/equilateral.js" ,
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
