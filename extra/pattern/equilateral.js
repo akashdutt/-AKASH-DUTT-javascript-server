@@ -1,4 +1,4 @@
-function equilateral(n){
+export default function equilateral(n){
     let pattern=''
     for(let i=1;i<=n;i++){
         for(let j=1;j<=n-i;j++){
@@ -11,4 +11,3 @@ function equilateral(n){
     pattern=''
     }
 }
-equilateral(5)

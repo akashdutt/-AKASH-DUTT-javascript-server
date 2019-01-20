@@ -1,4 +1,4 @@
-function diamond(n){
+export default function diamond(n){
     let pattern = ''
     let spaceCount=n-1
     for(let i=1;i<=n;i++){
@@ -23,4 +23,3 @@ function diamond(n){
     }
 
 }
-diamond(5);

@@ -4,11 +4,7 @@
   "description": "testing functionalities",
   "main": "index.js",
   "scripts": {
-    "validation":"node extra/utils/validation.js",
-    "permissions":"node extra/utils/permissions.js",
-    "pattern:diamond": "nodemon extra/pattern/diamond.js" ,
-    "pattern:equilateral": "nodemon extra/pattern/equilateral.js" ,
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "babel-node extra --presets env"
   },
   "repository": {
     "type": "git",
@@ -19,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/akashdutt/javascript-server/issues"
   },
-  "homepage": "https://github.com/akashdutt/javascript-server#readme"
+  "homepage": "https://github.com/akashdutt/javascript-server#readme",
+  "devDependencies": {
+    "@babel/preset-env": "^7.2.3",
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
+  }
 }
