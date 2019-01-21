@@ -1,12 +1,5 @@
-import { GET_USERS, GET_PASSWORD } from "./constants";
 export interface IPermission {
-	GET_USERS: {
-		all: string[];
-		read: string[];
-		write: string[];
-		delete: string[];
-	};
-	GET_PASSWORD: {
+	[getter: string]: {
 		all: string[];
 		read: string[];
 		write: string[];

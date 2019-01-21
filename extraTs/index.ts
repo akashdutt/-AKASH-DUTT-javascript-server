@@ -3,7 +3,7 @@ import { diamond, equilateral } from "./pattern";
 diamond(5);
 equilateral(5);
 import { hasPermission } from "./utils";
-hasPermission("getUsers", "trainee", "read");
+hasPermission("getPasswords", "trainer", "read");
 export const users: IUsers[] = [
 	{
 		traineeEmail: "trainee1@successive.tech",
