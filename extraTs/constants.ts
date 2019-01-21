@@ -3,13 +3,13 @@ const trainee: string = "trainee";
 const trainer: string = "trainer";
 const headTrainer: string = "head-trainer";
 export const permissions: IPermission = {
-	getUsers: {
+	'getUsers': {
 		all: [headTrainer],
 		read: [trainee, trainer],
 		write: [trainer],
 		delete: []
 	},
-	getPasswords: {
+	'getPasswords': {
 		all: [headTrainer],
 		read: [trainee, trainer],
 		write: [trainer],
