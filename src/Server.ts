@@ -9,7 +9,7 @@ class Server {
 		return this;
 	}
 	public setupRoutes() {
-		this.app.get("/health-check", (req, res) => {
+		this.app.use("/health-check", (req, res) => {
 			res.send("I am OK");
 		});
 	}
