@@ -1,29 +1,36 @@
 {
-  "name": "javascript-server",
-  "version": "1.0.0",
-  "description": "testing functionalities",
-  "main": "index.js",
-  "scripts": {
-		"dev": "babel-node extra --presets env" ,
-		"extra:ts": "tsc-watch --project . --onSuccess \"npm run nodemon \"" ,
+	"name": "javascript-server",
+	"version": "1.0.0",
+	"description": "testing functionalities",
+	"main": "index.js",
+	"scripts": {
+		"dev": "babel-node extra --presets env",
+		"src": "npm run clean && tsc-watch --project . --onSuccess \"npm run nodemon \"",
+		"clean": "rm -rf dist/*",
 		"nodemon": "nodemon ./dist/index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/akashdutt/javascript-server.git"
-  },
-  "author": "AKASH DUTT",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/akashdutt/javascript-server/issues"
-  },
-  "homepage": "https://github.com/akashdutt/javascript-server#readme",
-  "devDependencies": {
-    "@babel/preset-env": "^7.2.3",
-    "babel": "^6.23.0",
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "tsc-watch": "^1.0.31",
-    "typescript": "^3.2.4"
-  }
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/akashdutt/javascript-server.git"
+	},
+	"author": "AKASH DUTT",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/akashdutt/javascript-server/issues"
+	},
+	"homepage": "https://github.com/akashdutt/javascript-server#readme",
+	"devDependencies": {
+		"@babel/preset-env": "^7.2.3",
+		"babel": "^6.23.0",
+		"babel-cli": "^6.26.0",
+		"babel-preset-env": "^1.7.0",
+		"tsc-watch": "^1.0.31",
+		"typescript": "^3.2.4"
+	},
+	"dependencies": {
+		"@types/express": "^4.16.0",
+		"@types/node": "^10.12.18",
+		"dotenv": "^6.2.0",
+		"express": "^4.16.4"
+	}
 }
