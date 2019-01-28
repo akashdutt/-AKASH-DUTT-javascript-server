@@ -3,7 +3,7 @@ export default function errorHandler(err, req, res, next) {
 	res.json({
 		error: err,
 		message: "error",
-		status: 500,
+		status: "500",
 		timestamp: new Date()
 	});
 }
