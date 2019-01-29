@@ -3,13 +3,13 @@ function validationHandler(objConfig) {
 		const keys = Object.keys(objConfig);
 		keys.forEach(key => {
 			const item = objConfig[key];
-			const value = item.in.map(function(items) {
+			let value = item.in.map(function(items) {
 				console.log(req[items][key]);
 				return req[items][key];
 			});
 			if (item && item.required) {
 				const validValue = value.filter(items => items);
-				console.log(validValue);
+				// console.log(validValue);
 				if (validValue.length !== value.length) {
 					next("Provide Values");
 				}
@@ -46,8 +46,20 @@ function validationHandler(objConfig) {
 					}
 				});
 			}
+			if (item.number) {
+				let validValue = value.filter(items => items);
+				if (isNaN(req.query.skip) || isNaN(req.query.limit)) {
+					next({ error: "Bad Request" });
+				}
+				if (validValue == "") {
+					validValue = item.default;
+				} else {
+					// console.log(validValue);
+				}
+			}
 			if (item.custom) {
-				item.custom(value)
+				const validValue = value.filter(items => items);
+				item.custom(validValue[0]);
 			}
 		});
 		next();

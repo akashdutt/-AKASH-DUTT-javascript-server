@@ -6,6 +6,9 @@ const validation = {
 			in: ["body"],
 			custom: function(value) {
 				console.log("Value", value);
+				if(Array.isArray(value)){
+					console.log("it is an array")
+				}
 				throw { error: "Error Occurred", message: "Message" };
 			}
 		},
