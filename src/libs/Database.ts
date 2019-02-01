@@ -2,6 +2,7 @@ import * as mongoose from 'mongoose';
 import seedData, { deleteRecords, updateRecords } from './seedData';
 class Database {
   public static open(mongoUrl) {
+    console.log(mongoUrl);
     return new Promise((resolve, reject) => {
       mongoose
         .connect(
@@ -13,7 +14,7 @@ class Database {
           resolve('success');
           console.log('connected to database');
           // deleteRecords();
-          updateRecords();
+          // updateRecords();
           resolve('success');
           console.log('connected to database');
           const userSchema = new mongoose.Schema({

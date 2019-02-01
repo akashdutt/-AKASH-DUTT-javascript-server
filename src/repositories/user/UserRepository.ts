@@ -1,24 +1,30 @@
-import { userModel } from "./UserModel";
-import IUserModel from "./IUserModel";
-import * as mongoose from "mongoose";
+import * as mongoose from 'mongoose';
+import IUserModel from './IUserModel';
+import { userModel } from './UserModel';
 export class UserRepository {
-	private model: mongoose.Model<IUserModel>;
-	constructor() {
-		this.model = userModel;
+  public static genericObjectId() {
+    return String(mongoose.Types.ObjectId);
+  }
+  private model: mongoose.Model<IUserModel>;
+  constructor() {
+    this.model = userModel;
+  }
+  public create(data:any) {
+     return this.model.create({...data, id: UserRepository.genericObjectId});
+  }
+  public delete() {
+    this.model.deleteOne({name: 'Akash Dutt'}, (err) => {});
+  }
+  public update(data, newValues) {
+    this.model.updateOne(data, newValues, (err, res) => {
+      if (err) { throw err; }
+      console.log('1 document updated');
+    });
+  }
+  public countUser():mongoose.Query<number> {
+    return this.model.countDocuments({});
 	}
-	static genericObjectId() {
-		return String(mongoose.Types.ObjectId);
-	}
-	public create(data){
-		 return this.model.create(data, UserRepository.genericObjectId())
-	}
-	public delete(){
-		this.model.deleteOne({name:'Akash Dutt'}, function(err){});
-	}
-	public update(data,newValues){
-		this.model.updateOne(data, newValues, function(err, res) {
-			if (err) throw err;
-			console.log("1 document updated");
-		})
+	public findOne(query){
+		return this.model.findOne(query)
 	}
 }

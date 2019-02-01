@@ -1,10 +1,11 @@
-import * as mongoose from "mongoose";
+import * as mongoose from 'mongoose';
 export default class UserSchema extends mongoose.Schema {
-	constructor(options: any) {
-		const baseSchema = {
-			_id: String,
-			name: String
-		};
-		super(baseSchema, options);
-	}
+  constructor(options: any) {
+    const baseSchema = {
+			name: String,
+			role: String,
+			email: String
+    };
+    super(baseSchema, options);
+  }
 }
