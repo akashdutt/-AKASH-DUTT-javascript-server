@@ -1,5 +1,5 @@
 import successHandler from "../../libs/routes/successHandler";
-class UserController {
+class TraineeController {
 	get(req, res) {
 		const data = {
 			name: "Akash",
@@ -24,4 +24,4 @@ class UserController {
 		res.status(200).send(successHandler("deleted", null));
 	}
 }
-export default new UserController()
+export default new TraineeController();

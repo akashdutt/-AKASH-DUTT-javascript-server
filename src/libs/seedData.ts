@@ -13,5 +13,5 @@ export function deleteRecords() {
 	userRepository.delete();
 }
 export function updateRecords(){
-	userRepository.update();
+	userRepository.update({_id:'1234'},{name:"NewUpdatedValues"});
 }

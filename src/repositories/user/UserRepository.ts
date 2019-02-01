@@ -15,7 +15,10 @@ export class UserRepository {
 	public delete(){
 		this.model.deleteOne({name:'Akash Dutt'}, function(err){});
 	}
-	public update(){
-		this.model.update({ _id: '1234'}, { $set: { name: 'UpdatedUser' }});
+	public update(data,newValues){
+		this.model.updateOne(data, newValues, function(err, res) {
+			if (err) throw err;
+			console.log("1 document updated");
+		})
 	}
 }
