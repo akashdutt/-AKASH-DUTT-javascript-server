@@ -23,6 +23,11 @@ export default function authMiddleWare(module, permissionType) {
         });
       }
       next();
-    });
+    })
+    .catch(
+      next({
+    error: 'no user with this id ',
+    }),
+    );
   };
 }
