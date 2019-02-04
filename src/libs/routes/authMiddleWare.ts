@@ -9,9 +9,9 @@ export default function authMiddleWare(module, permissionType) {
     const user = jwt.verify(token, process.env.KEY);
     const userRepository = new UserRepository();
     req.body.data = user;
-    console.log('ROle of user', user.Role);
-    const {Role} = user;
-    return userRepository.findOne({Role}).then((result) => {
+    console.log('ROle of user', user._id);
+    const {_id} = user;
+    return userRepository.findOne({_id}).then((result) => {
       if (!user) {
         return next({ error: 'Unauthorized Access', status: res.status(403) });
       }
@@ -24,6 +24,5 @@ export default function authMiddleWare(module, permissionType) {
       }
       next();
     });
-
   };
 }
