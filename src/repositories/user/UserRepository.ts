@@ -9,10 +9,11 @@ export class UserRepository {
   constructor() {
     this.model = userModel;
   }
-  public create(data:any) {
+  public create(data: any) {
      return this.model.create({...data, id: UserRepository.genericObjectId});
   }
   public delete() {
+// tslint:disable-next-line: no-empty
     this.model.deleteOne({name: 'Akash Dutt'}, (err) => {});
   }
   public update(data, newValues) {
@@ -21,10 +22,10 @@ export class UserRepository {
       console.log('1 document updated');
     });
   }
-  public countUser():mongoose.Query<number> {
+  public countUser(): mongoose.Query<number> {
     return this.model.countDocuments({});
-	}
-	public findOne(query){
-		return this.model.findOne(query)
-	}
+  }
+  public findOne(query) {
+    return this.model.findOne(query);
+  }
 }

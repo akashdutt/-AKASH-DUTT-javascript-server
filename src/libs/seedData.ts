@@ -6,14 +6,14 @@ export default () => {
   userRepository.countUser().then((res) => {
     if (res === 0) {
       userRepository.create({
+        email: 'akash.dutt@successive.tech',
         name: 'Akash_Dutt',
         role: 'headTrainer',
-        email: 'akash.dutt@successive.tech',
       });
       userRepository.create({
+        email: 'trainee@successive.tech',
         name: 'Trainee',
         role: 'trainee',
-        email: 'trainee@successive.tech',
       });
     }
   });

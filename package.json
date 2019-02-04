@@ -10,7 +10,7 @@
     "nodemon": "nodemon ./dist/index.js",
     "pre-commit": "npm run src",
     "lint": "./node_modules/tslint/bin/tslint -c tslint.json -p tsconfig.json --exclude 'node_modules/**/*.{j,t}s'",
-    "lint:fix": "yarn lint -- --fix"
+    "lint:fix": "npm run lint -- --fix"
   },
   "repository": {
     "type": "git",
@@ -49,8 +49,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm test",
-      "pre-push": "npm test"
+      "pre-commit": "npm run lint"
     }
   }
 }

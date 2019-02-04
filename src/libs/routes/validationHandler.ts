@@ -1,5 +1,5 @@
 function validationHandler(objConfig) {
-  return function(req, res, next) {
+  return (req, res, next) => {
     const keys = Object.keys(objConfig);
     keys.forEach((key) => {
       const item = objConfig[key];
@@ -51,7 +51,7 @@ function validationHandler(objConfig) {
         if (isNaN(req.query.skip) || isNaN(req.query.limit)) {
           next({ error: 'Bad Request' });
         }
-        if (validValue == '') {
+        if (validValue === '') {
           validValue = item.default;
         } else {
           // console.log(validValue);
