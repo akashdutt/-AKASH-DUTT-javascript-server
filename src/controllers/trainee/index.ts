@@ -1,2 +1,2 @@
-import trainee from "./Controller";
+import trainee from './Controller';
 export { trainee };

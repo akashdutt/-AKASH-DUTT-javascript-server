@@ -1,10 +1,10 @@
-import * as mongoose from "mongoose";
-import IUserModel from "./IUserModel";
-import UserSchema from "./UserSchema";
-const userSchema = new UserSchema({ collection: "user" });
+import * as mongoose from 'mongoose';
+import IUserModel from './IUserModel';
+import UserSchema from './UserSchema';
+const userSchema = new UserSchema({ collection: 'user' });
 export const userModel: mongoose.Model<IUserModel> = mongoose.model<IUserModel>(
-	"User",
-	userSchema,
-	"user",
-	true
+  'User',
+  userSchema,
+  'user',
+  true,
 );
