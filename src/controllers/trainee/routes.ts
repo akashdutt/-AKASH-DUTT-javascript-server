@@ -6,7 +6,7 @@ import validation from './validation';
 const traineeRouter = Router();
 traineeRouter
   .get('/', authMiddleWare('TRAINEE', 'read'), trainee.get)
-  .post('/', validationHandler(validation.create), trainee.create)
+  .post('/', authMiddleWare('TRAINEE', 'read'), validationHandler(validation.create), trainee.create)
   .put('/', validationHandler(validation.update), trainee.update)
   .delete('/:id', validationHandler(validation.delete), trainee.delete);
 export default traineeRouter;

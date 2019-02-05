@@ -1,16 +1,16 @@
 import { UserRepository } from './../repositories/user/UserRepository';
-const userRepository = new UserRepository();
+const userRepo = new UserRepository();
 
 export default () => {
   console.log('in seed');
-  userRepository.countUser().then((res) => {
+  userRepo.countUser().then((res) => {
     if (res === 0) {
-      userRepository.create({
+      userRepo.userCreate({
         email: 'akash.dutt@successive.tech',
         name: 'Akash_Dutt',
-        role: 'headTrainer',
+        role: 'head-trainer',
       });
-      userRepository.create({
+      userRepo.userCreate({
         email: 'trainee@successive.tech',
         name: 'Trainee',
         role: 'trainee',
@@ -20,8 +20,8 @@ export default () => {
 };
 export function deleteRecords() {
 
-  userRepository.delete();
+  userRepo.userDelete();
 }
 export function updateRecords() {
-  userRepository.update({_id: '1234'}, {name: 'NewUpdatedValues'});
+  userRepo.userUpdate({_id: '1234'}, {name: 'NewUpdatedValues'});
 }
