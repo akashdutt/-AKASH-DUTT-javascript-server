@@ -12,11 +12,14 @@ export class UserRepository extends VersionableRepository<
   public userCreate(data) {
     return this.versionCreate(data);
   }
-    public userDelete() {
-  // tslint:disable-next-line: no-empty
-      this.versionDelete({name: 'Akash Dutt'});
-    }
+  public userDelete(data) {
+    // tslint:disable-next-line: no-empty
+    this.versionDelete(data);
+  }
   public userUpdate(data, newValues) {
     this.versionUpdate(data, newValues);
+  }
+  public userFind(query) {
+    return this.findOne(query);
   }
 }

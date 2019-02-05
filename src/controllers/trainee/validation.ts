@@ -1,21 +1,32 @@
 const validation = {
   create: {
-    id: {
+    email: {
+      errorMessage: 'email is required' ,
       in: ['body'],
+      regex: RegExp(/^[A-Za-z0-9._%+-]+@successive.tech$/),
       required: true,
-      string: true,
-      custom(value) {
-        console.log('Value', value);
-        if (Array.isArray(value)) {
-          console.log('it is an array');
-        }
-        throw { error: 'Error Occurred', message: 'Message' };
-      },
     },
-    name: {
-      errorMessage: 'Name is required',
-      in: ['body'],
-      regex: RegExp('[a-zA-Z]+\\.?'),
+    // id: {
+    //   in: ['body'],
+    //   required: false,
+    //   string: true,
+    //   custom(value) {
+    //     console.log('Value', value);
+    //     if (Array.isArray(value)) {
+    //       console.log('it is an array');
+    //     }
+    //     throw { error: 'Error Occurred', message: 'Message' };
+    //   },
+    // },
+    // name: {
+    //   errorMessage: 'Name is required',
+    //   in: ['body'],
+    //   regex: RegExp('[a-zA-Z]+\\.?'),
+    //   required: false,
+    // },
+    userPassword: {
+      errorMessage: 'password required' ,
+      in: ['body'] ,
       required: true,
     },
   },

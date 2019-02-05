@@ -1,13 +1,14 @@
 import successHandler from '../../libs/routes/successHandler';
 import { UserRepository } from './../../repositories/user/UserRepository';
+const userRepository = new UserRepository();
 class UserController {
+
   public get(req, res) {
     const {result} = req.body;
     res.status(200).send(successHandler('received', result));
   }
   public create(req, res) {
     const { name, email } = req.body;
-    const userRepository = new UserRepository();
     userRepository.userCreate(req.body).then(() => {
       res.status(200).send(successHandler(name, email));
      });
@@ -18,10 +19,11 @@ class UserController {
   }
   public delete(req, res, next) {
     const { name, id } = req.body;
-    const value = req.params.id;
-    if (value !== id) {
-      next({ error: 'not matched', id });
+    const value = req.params.name;
+    if (value !== name) {
+      next({ error: 'not matched', name });
     }
+    userRepository.userDelete({name});
     res.status(200).send(successHandler('deleted', undefined));
   }
 }
