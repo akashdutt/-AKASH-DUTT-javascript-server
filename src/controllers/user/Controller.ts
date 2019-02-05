@@ -2,14 +2,15 @@ import successHandler from '../../libs/routes/successHandler';
 import { UserRepository } from './../../repositories/user/UserRepository';
 class UserController {
   public get(req, res) {
-    const { email , name } = req.body.data ;
-    const data = {email , name};
     const {result} = req.body;
     res.status(200).send(successHandler('received', result));
   }
   public create(req, res) {
-    const { name, id } = req.body;
-    res.status(200).send(successHandler(name, id));
+    const { name, email } = req.body;
+    const userRepository = new UserRepository();
+    userRepository.userCreate(req.body).then(() => {
+      res.status(200).send(successHandler(name, email));
+     });
   }
   public update(req, res) {
     const { name, id } = req.body;

@@ -9,25 +9,22 @@ export default function authMiddleWare(module, permissionType) {
     const user = jwt.verify(token, process.env.KEY);
     const userRepository = new UserRepository();
     req.body.data = user;
-    console.log('ROle of user', user._id);
-    const {_id} = user;
-    return userRepository.findOne({_id}).then((result) => {
-      if (!user) {
-        return next({ error: 'Unauthorized Access', status: res.status(403) });
-      }
-      req.body.result = result;
-      if (!hasPermission(module, user.Role, permissionType)) {
-      next({
-          error: 'Permission Denied',
-          message: `Access of ${permissionType} for ${user.Role} do not exist`,
-        });
-      }
-      next();
-    })
-    .catch(
-      next({
-    error: 'no user with this id ',
-    }),
-    );
+    console.log('id of user', user._id);
+    const { _id } = user;
+    if (user) {
+      return userRepository.findOne({ _id}).then((result) => {
+        req.body.result = result;
+        console.log('from database', result);
+        if (!hasPermission(module, result.role, permissionType)) {
+          return next({
+            error: 'Permission Denied',
+            message: `Access of ${permissionType} for ${user.Role} do not exist`,
+          });
+        }
+        next();
+      });
+    } else {
+      next({ error: 'Unauthorized Access', status: res.status(403) });
+    }
   };
 }
