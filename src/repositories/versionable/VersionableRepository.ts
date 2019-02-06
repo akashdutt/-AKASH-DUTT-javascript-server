@@ -19,18 +19,22 @@ export class VersionableRepository<
     });
   }
   public versionUpdate(data: any, newValues: any) {
-    this.model.updateMany(data, newValues, (err, res) => {
-      if (err) {
-        console.log('error:---', err);
-        throw err;
-      }
-      console.log('1 document updated');
+    const item = Object.keys(newValues);
+    const value = Object.values(item);
+    data.value = value ;
+    const createDate = new Date();
+    data.createdAt = createDate;
+    const oldId = data._id ;
+    data._id = VersionableRepository.genericObjectId();
+    return this.model.updateOne({_id: oldId} , { $set: { deletedAt: createDate}}).then(() => {
+      return this.model.insertMany(data);
     });
   }
   public versionDelete(data) {
-    this.model.deleteOne(data, (err) => {
-      throw err;
-    });
+    this.model.updateOne(
+      { ...data, deletedAt: { $exists: false } },
+      { deletedAt: Date.now() },
+    );
   }
   public countUser(): mongoose.Query<number> {
     return this.model.countDocuments({});
