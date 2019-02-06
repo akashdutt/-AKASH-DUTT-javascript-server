@@ -1,32 +1,32 @@
 const validation = {
   create: {
     email: {
-      errorMessage: 'email is required' ,
+      errorMessage: 'email is required',
       in: ['body'],
       regex: RegExp(/^[A-Za-z0-9._%+-]+@successive.tech$/),
       required: true,
     },
-    // id: {
-    //   in: ['body'],
-    //   required: false,
-    //   string: true,
-    //   custom(value) {
-    //     console.log('Value', value);
-    //     if (Array.isArray(value)) {
-    //       console.log('it is an array');
-    //     }
-    //     throw { error: 'Error Occurred', message: 'Message' };
-    //   },
-    // },
-    // name: {
-    //   errorMessage: 'Name is required',
-    //   in: ['body'],
-    //   regex: RegExp('[a-zA-Z]+\\.?'),
-    //   required: false,
-    // },
+    id: {
+      in: ['body'],
+      required: false,
+      string: true,
+      custom(value) {
+        console.log('Value', value);
+        if (Array.isArray(value)) {
+          console.log('it is an array');
+        }
+        throw { error: 'Error Occurred', message: 'Message' };
+      },
+    },
+    name: {
+      errorMessage: 'Name is required',
+      in: ['body'],
+      regex: RegExp('[a-zA-Z]+\\.?'),
+      required: false,
+    },
     userPassword: {
-      errorMessage: 'password required' ,
-      in: ['body'] ,
+      errorMessage: 'password required',
+      in: ['body'],
       required: true,
     },
   },
@@ -34,18 +34,15 @@ const validation = {
     id: {
       errorMessage: 'Id is required',
       in: ['params'],
+      required: false,
+    },
+    name: {
+      errorMessage: 'name is required',
+      in: ['params'],
       required: true,
     },
   },
   get: {
-    skip: {
-      default: 0,
-      errorMessage: 'Skip is invalid',
-      in: ['query'],
-      number: true,
-      required: false,
-    },
-// tslint:disable-next-line: object-literal-sort-keys
     limit: {
       default: 10,
       errorMessage: 'Limit is invalid',
@@ -53,20 +50,32 @@ const validation = {
       number: true,
       required: false,
     },
+    skip: {
+      default: 0,
+      errorMessage: 'Skip is invalid',
+      in: ['query'],
+      number: true,
+      required: false,
+    },
   },
   update: {
-    id: {
-      in: ['body'],
-      required: true,
-      string: true,
-    },
-// tslint:disable-next-line: object-literal-sort-keys
     dataToUpdate: {
       in: ['body'],
       isObject: true,
       required: true,
-// tslint:disable-next-line: no-empty
+      // tslint:disable-next-line: no-empty
       custom(dataToUpdate) {},
+    },
+    id: {
+      in: ['body'],
+      required: false,
+      string: true,
+    },
+
+    name: {
+      in: ['body'],
+      isObject: true,
+      required: true,
     },
   },
 };

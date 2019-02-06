@@ -3,10 +3,11 @@ import * as jwt from 'jsonwebtoken';
 import successHandler from '../../libs/routes/successHandler';
 import { UserRepository } from './../../repositories/user/UserRepository';
 class Controllertoken {
-  public create(req, res, next) {
-    const { email, userPassword } = req.body;
-    const userRepository = new UserRepository();
-    userRepository.userFind({ email }).then((result) => {
+  public async create(req, res, next) {
+    try {
+      const { email, userPassword } = req.body;
+      const userRepository = new UserRepository();
+      const result = await userRepository.userFind({ email });
       const { PASSWORD } = result;
       bcrypt.compare(userPassword, PASSWORD, (err, match) => {
         if (match === true) {
@@ -23,7 +24,9 @@ class Controllertoken {
           next('cannot find password');
         }
       });
-    });
+    } catch (err) {
+      console.log(err);
+    }
   }
 }
 export default new Controllertoken();

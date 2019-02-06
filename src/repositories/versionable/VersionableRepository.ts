@@ -1,5 +1,8 @@
 import * as mongoose from 'mongoose';
-export class VersionableRepository <D extends mongoose.Document, M extends mongoose.Model<D>> {
+export class VersionableRepository<
+  D extends mongoose.Document,
+  M extends mongoose.Model<D>
+> {
   public static genericObjectId() {
     return String(mongoose.Types.ObjectId());
   }
@@ -15,17 +18,19 @@ export class VersionableRepository <D extends mongoose.Document, M extends mongo
       originalId: id,
     });
   }
-  public versionUpdate(data, newValues) {
-    this.model.updateOne(data, newValues, (err, res) => {
+  public versionUpdate(data: any, newValues: any) {
+    this.model.updateMany(data, newValues, (err, res) => {
       if (err) {
+        console.log('error:---', err);
         throw err;
       }
       console.log('1 document updated');
     });
   }
   public versionDelete(data) {
-    // tslint:disable-next-line: no-empty
-    this.model.deleteOne(data, (err) => {});
+    this.model.deleteOne(data, (err) => {
+      throw err;
+    });
   }
   public countUser(): mongoose.Query<number> {
     return this.model.countDocuments({});
