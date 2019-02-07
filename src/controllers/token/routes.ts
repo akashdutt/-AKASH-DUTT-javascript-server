@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import authMiddleWare from '../../libs/routes/authMiddleWare';
 import validationHandler from '../../libs/routes/validationHandler';
 import validation from '../trainee/validation';
 import tokenObj from './Controllertoken';

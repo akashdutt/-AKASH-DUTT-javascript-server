@@ -15,10 +15,18 @@ export class UserRepository extends VersionableRepository<
   public userDelete(data) {
     this.versionDelete(data);
   }
-  public userUpdate(data, newValues) {
-    this.versionUpdate(data, newValues );
+  public userUpdate(originalId, newValues) {
+    this.versionUpdate(originalId, newValues );
   }
   public userFind(query) {
     return this.findOne(query);
+  }
+  public async userFindAll(userLimit, userSkip) {
+    try {
+    return await this.findAll(userLimit, userSkip);
+    }
+    catch (err) {
+      console.log('in Userrepo userfindAll', err);
+    }
   }
 }

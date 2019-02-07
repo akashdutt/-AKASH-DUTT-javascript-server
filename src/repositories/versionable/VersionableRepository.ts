@@ -18,17 +18,14 @@ export class VersionableRepository<
       originalId: id,
     });
   }
-  public versionUpdate(data: any, newValues: any) {
-    const item = Object.keys(newValues);
-    const value = Object.values(item);
-    data.value = value ;
-    const createDate = new Date();
-    data.createdAt = createDate;
-    const oldId = data._id ;
-    data._id = VersionableRepository.genericObjectId();
-    return this.model.updateOne({_id: oldId} , { $set: { deletedAt: createDate}}).then(() => {
-      return this.model.insertMany(data);
-    });
+  public versionUpdate(originalId: any, newValues: any) {
+    const record = this.model
+      .findOne({ originalId, deletedAt: { $exists: false } })
+      .lean();
+    const date = new Date();
+    const newData = Object.assign(record, newValues, { createdAt: date });
+    this.model.create(...newData);
+    this.model.updateOne({ _id: record._id }, { deletedAt: date });
   }
   public versionDelete(data) {
     this.model.updateOne(
@@ -38,6 +35,16 @@ export class VersionableRepository<
   }
   public countUser(): mongoose.Query<number> {
     return this.model.countDocuments({});
+  }
+  public async findAll(userLimit, userSkip) {
+    try {
+      userLimit = Number(userLimit);
+      userSkip = Number(userSkip);
+      return await this.model.find({}, undefined , { limit: userLimit, skip: userSkip });
+    }
+    catch (err) {
+      console.log(err);
+    }
   }
   public findOne(query): mongoose.DocumentQuery<D, D, {}> {
     return this.model.findOne(query);

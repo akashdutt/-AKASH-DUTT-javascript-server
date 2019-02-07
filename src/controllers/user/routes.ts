@@ -7,7 +7,7 @@ const UserRouter = Router();
 UserRouter.get(
   '/',
   authMiddleWare('TRAINEE', 'read'),
-  validationHandler(validation.get),
+  // validationHandler(validation.get),
   userObj.get,
 )
   .post(

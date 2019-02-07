@@ -2,20 +2,34 @@ import successHandler from '../../libs/routes/successHandler';
 import { UserRepository } from './../../repositories/user/UserRepository';
 const userRepository = new UserRepository();
 class UserController {
-  public get(req, res) {
-    const { result } = req.body;
-    res.status(200).send(successHandler('received', result));
+  public async get(req, res, next) {
+    try {
+      const { limit, skip } = req.query;
+      console.log('skip is', skip, 'limit is', limit);
+      const result = await userRepository.userFindAll(limit, skip);
+      res.status(200).send(successHandler('received', result));
+    } catch (err) {
+      console.log('in userController get', err);
+      next('cannot get');
+    }
   }
   public create(req, res) {
     const { name, email } = req.body;
-    userRepository.userCreate(req.body).then(() => {
-      res.status(200).send(successHandler(name, email));
-    });
+    console.log('created', req.body);
+    userRepository
+      .userCreate(req.body)
+      .then((result) => {
+        console.log('in create', result);
+        res.status(200).send(successHandler(name, email));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
   public update(req, res) {
-    const { name, dataToUpdate } = req.body;
+    const { originalId, dataToUpdate } = req.body;
     console.log('>', name, '<');
-    userRepository.userUpdate(name, dataToUpdate);
+    userRepository.userUpdate(originalId, dataToUpdate);
     res.status(200).send(successHandler('successfully updated', dataToUpdate));
   }
   public delete(req, res, next) {

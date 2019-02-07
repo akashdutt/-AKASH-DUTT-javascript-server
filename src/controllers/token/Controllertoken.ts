@@ -8,8 +8,8 @@ class Controllertoken {
       const { email, userPassword } = req.body;
       const userRepository = new UserRepository();
       const result = await userRepository.userFind({ email });
-      const { PASSWORD } = result;
-      bcrypt.compare(userPassword, PASSWORD, (err, match) => {
+      const { password } = result;
+      bcrypt.compare(userPassword, password, (err, match) => {
         if (match === true) {
           const key = process.env.KEY;
           const token = jwt.sign(
