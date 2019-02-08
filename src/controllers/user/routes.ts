@@ -1,13 +1,13 @@
 import { Router } from 'express';
 import authMiddleWare from '../../libs/routes/authMiddleWare';
 import validationHandler from '../../libs/routes/validationHandler';
-import validation from '../trainee/validation';
 import userObj from './index';
+import validation from './validation';
 const UserRouter = Router();
 UserRouter.get(
   '/',
   authMiddleWare('TRAINEE', 'read'),
-  // validationHandler(validation.get),
+  validationHandler(validation.get),
   userObj.get,
 )
   .post(

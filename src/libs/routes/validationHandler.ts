@@ -1,12 +1,11 @@
+import { NextFunction, Request, Response } from 'express';
 function validationHandler(objConfig) {
-  return (req, res, next) => {
+  return (req: Request, res: Response, next: NextFunction): void => {
     try {
-    console.log('inside validation handler');
-    const keys = Object.keys(objConfig);
-    keys.forEach((key) => {
+    const keys: string[] = Object.keys(objConfig);
+    keys.forEach((key: string) => {
       const item = objConfig[key];
       const value = item.in.map((items) => {
-        console.log('>', req[items][key]);
         return req[items][key];
       });
       if (item && item.required) {

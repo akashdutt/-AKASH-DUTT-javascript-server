@@ -22,27 +22,25 @@ class Server {
     app.use(notFoundRoute);
     app.use(errorHandler);
   }
-  public run() {
-    const {
-      app,
-      config: { port , mongoUrl},
-    } = this;
-    Database.open(mongoUrl)
-      .then((result) => {
-        app.listen(port, (err) => {
-          if (err) {
-            console.log(result);
-            throw err;
-          } else {
-            console.log('connection established', result);
-            console.log('app is running on ', port);
-          }
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        Database.disconnect();
+  public async run() {
+    try {
+      const {
+        app,
+        config: { port, mongoUrl },
+      } = this;
+      const result = await Database.open(mongoUrl);
+      app.listen(port, (err) => {
+        if (err) {
+          console.log(result);
+          throw err;
+        } else {
+          console.log('app is running on ', port);
+        }
       });
+    } catch (err) {
+      console.log(err);
+      Database.disconnect();
+    }
   }
   private initBodyParser() {
     const { app } = this;

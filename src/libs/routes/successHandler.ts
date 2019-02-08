@@ -1,6 +1,6 @@
-export default function successHandler(message: string, data: any) {
+export default function successHandler(message: string, data: any): object {
   return {
-    id: data,
-    name: message,
+    id: message,
+    name: data,
   };
 }

@@ -1,9 +1,10 @@
 import * as bcrypt from 'bcrypt';
+import { NextFunction, Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import successHandler from '../../libs/routes/successHandler';
 import { UserRepository } from './../../repositories/user/UserRepository';
 class Controllertoken {
-  public async create(req, res, next) {
+  public async create(req: Request, res: Response, next: NextFunction) {
     try {
       const { email, userPassword } = req.body;
       const userRepository = new UserRepository();

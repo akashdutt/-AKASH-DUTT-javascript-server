@@ -5,8 +5,8 @@ export default class UserSchema extends VersionableSchema {
       _id: String,
       email: String,
       name: String,
-      password: String,
       role: String,
+      userPassword: String,
     };
     super(baseSchema, options);
   }

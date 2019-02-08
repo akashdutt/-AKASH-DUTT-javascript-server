@@ -10,43 +10,44 @@ export class VersionableRepository<
   constructor(Model) {
     this.model = Model;
   }
-  public versionCreate(data: any): Promise<D> {
+  public async versionCreate(data: any): Promise<D> {
     const id = VersionableRepository.genericObjectId();
-    return this.model.create({
+    return await this.model.create({
       ...data,
       _id: id,
       originalId: id,
     });
   }
-  public versionUpdate(originalId: any, newValues: any) {
-    const record = this.model
-      .findOne({ originalId, deletedAt: { $exists: false } })
+  public async versionUpdate(originalId: any, newValues: any) {
+    const record = await this.model
+      .findOne({ _id: originalId, deletedAt: { $exists: false } })
       .lean();
     const date = new Date();
     const newData = Object.assign(record, newValues, { createdAt: date });
-    this.model.create(...newData);
-    this.model.updateOne({ _id: record._id }, { deletedAt: date });
+    await this.model.create(...newData);
+    return await this.model.updateOne({ _id: record._id }, { deletedAt: date });
   }
-  public versionDelete(data) {
-    this.model.updateOne(
-      { ...data, deletedAt: { $exists: false } },
+  public async versionDelete(data) {
+    const result = await this.model.findOne({_id: data});
+    return await this.model.updateOne(
+      { _id: result._id , deletedAt: { $exists: false } },
       { deletedAt: Date.now() },
     );
   }
-  public countUser(): mongoose.Query<number> {
-    return this.model.countDocuments({});
+  public async countUser(): mongoose.Query<number> {
+    return await this.model.countDocuments({});
   }
-  public async findAll(userLimit, userSkip) {
+  public async findAll(userRole, userLimit, userSkip): mongoose.DocumentQuery<D, D, {}> {
     try {
       userLimit = Number(userLimit);
       userSkip = Number(userSkip);
-      return await this.model.find({}, undefined , { limit: userLimit, skip: userSkip });
+      return await this.model.find(userRole, undefined , { limit: userLimit, skip: userSkip });
     }
     catch (err) {
       console.log(err);
     }
   }
-  public findOne(query): mongoose.DocumentQuery<D, D, {}> {
-    return this.model.findOne(query);
+  public async findOne(query): mongoose.DocumentQuery<D, D, {}> {
+    return await this.model.findOne(query);
   }
 }

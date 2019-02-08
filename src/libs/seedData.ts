@@ -1,26 +1,23 @@
 import * as bcrypt from 'bcrypt';
 import { UserRepository } from './../repositories/user/UserRepository';
-const userRepo = new UserRepository();
-const mongoPassword = process.env.Password;
-console.log(mongoPassword);
+const userRepo: UserRepository = new UserRepository();
+const mongoPassword: string = process.env.Password;
 export default async () => {
   try {
-    console.log('in seed');
     const res = await userRepo.countUser();
     if (res === 0) {
       bcrypt.hash(mongoPassword, 10, (err, hash) => {
-        console.log(hash);
         userRepo.userCreate({
           email: 'akash.dutt@successive.tech',
           name: 'Akash_Dutt',
-          password: hash,
           role: 'head-trainer',
+          userPassword: hash,
         });
         userRepo.userCreate({
           email: 'trainee@successive.tech',
           name: 'Trainee',
-          password: hash,
           role: 'trainee',
+          userPassword: hash,
         });
       });
     }

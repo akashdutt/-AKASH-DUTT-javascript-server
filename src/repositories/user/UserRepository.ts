@@ -9,24 +9,24 @@ export class UserRepository extends VersionableRepository<
   constructor() {
     super(userModel);
   }
-  public userCreate(data) {
-    return this.versionCreate(data);
+  public async userCreate(data: object): Promise<IUserModel> {
+    return await this.versionCreate(data);
   }
-  public userDelete(data) {
-    this.versionDelete(data);
+  public async userDelete(data) {
+    return await this.versionDelete(data);
   }
-  public userUpdate(originalId, newValues) {
-    this.versionUpdate(originalId, newValues );
+  public async userUpdate(originalId, newValues) {
+    return await this.versionUpdate(originalId, newValues );
   }
-  public userFind(query) {
-    return this.findOne(query);
+  public async userFind(query) {
+    return await this.findOne(query);
   }
-  public async userFindAll(userLimit, userSkip) {
+  public async userFindAll(userRole, userLimit, userSkip) {
     try {
-    return await this.findAll(userLimit, userSkip);
+    return await this.findAll(userRole, userLimit, userSkip);
     }
     catch (err) {
-      console.log('in Userrepo userfindAll', err);
+      console.log('in UserRepository UserFindAll', err);
     }
   }
 }
