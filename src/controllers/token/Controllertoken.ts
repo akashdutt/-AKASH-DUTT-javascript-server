@@ -1,0 +1,33 @@
+import * as bcrypt from 'bcrypt';
+import { NextFunction, Request, Response } from 'express';
+import * as jwt from 'jsonwebtoken';
+import successHandler from '../../libs/routes/successHandler';
+import { UserRepository } from './../../repositories/user/UserRepository';
+class Controllertoken {
+  public async create(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { email, userPassword } = req.body;
+      const userRepository = new UserRepository();
+      const result = await userRepository.userFind({ email });
+      const { password } = result;
+      bcrypt.compare(userPassword, password, (err, match) => {
+        if (match === true) {
+          const key = process.env.KEY;
+          const token = jwt.sign(
+            {
+              result,
+            },
+            key,
+            { expiresIn: 15 * 60 },
+          );
+          res.status(200).send(successHandler(token, email));
+        } else {
+          next('cannot find password');
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+}
+export default new Controllertoken();

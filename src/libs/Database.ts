@@ -1,39 +1,17 @@
 import * as mongoose from 'mongoose';
 import seedData, { deleteRecords, updateRecords } from './seedData';
 class Database {
-  public static open(mongoUrl) {
-    console.log(mongoUrl);
-    return new Promise((resolve, reject) => {
-      mongoose
-        .connect(
-          mongoUrl,
-          { useNewUrlParser: true },
-        )
-        .then((result) => {
-          seedData();
-          resolve('success');
-          console.log('connected to database');
-          // deleteRecords();
-          // updateRecords();
-          resolve('success');
-          console.log('connected to database');
-          const userSchema = new mongoose.Schema({
-            firstName: String,
-            lastName: String,
-          });
-          const User = mongoose.model('User', userSchema);
-          const user1 = new User({ firstName: 'Akash', lastName: 'Dutt' });
-          user1.save((err) => {
-            if (err) { throw err; }
-
-            console.log('User saved successfully!');
-          });
-        })
-        .catch((err) => {
-          reject('denied');
-          console.log('not connected');
-        });
-    });
+  public static async open(mongoUrl) {
+    try {
+      const result = await mongoose.connect(mongoUrl, {
+        useNewUrlParser: true,
+      });
+      if (result) {
+        seedData();
+      }
+    } catch (err) {
+      console.log('not connected', err);
+    }
   }
   public static disconnect() {
     mongoose.disconnect();

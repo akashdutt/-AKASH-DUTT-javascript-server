@@ -1,15 +1,15 @@
+import { NextFunction, Request, Response } from 'express';
 function validationHandler(objConfig) {
-  return (req, res, next) => {
-    const keys = Object.keys(objConfig);
-    keys.forEach((key) => {
+  return (req: Request, res: Response, next: NextFunction): void => {
+    try {
+    const keys: string[] = Object.keys(objConfig);
+    keys.forEach((key: string) => {
       const item = objConfig[key];
       const value = item.in.map((items) => {
-        console.log(req[items][key]);
         return req[items][key];
       });
       if (item && item.required) {
         const validValue = value.filter((items) => items);
-        // console.log(validValue);
         if (validValue.length !== value.length) {
           next('Provide Values');
         }
@@ -53,8 +53,6 @@ function validationHandler(objConfig) {
         }
         if (validValue === '') {
           validValue = item.default;
-        } else {
-          // console.log(validValue);
         }
       }
       if (item.custom) {
@@ -63,6 +61,11 @@ function validationHandler(objConfig) {
       }
     });
     next();
+    }
+    catch (error) {
+      console.log('error------', error);
+    }
+
   };
 }
 export default validationHandler;

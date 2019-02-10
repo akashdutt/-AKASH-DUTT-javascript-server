@@ -1,12 +1,31 @@
 import { Router } from 'express';
 import authMiddleWare from '../../libs/routes/authMiddleWare';
 import validationHandler from '../../libs/routes/validationHandler';
-import validation from '../trainee/validation';
 import userObj from './index';
+import validation from './validation';
 const UserRouter = Router();
-UserRouter
-  .get('/', authMiddleWare('TRAINEE', 'read'), userObj.get)
-  .post('/', authMiddleWare('TRAINEE', 'read') , userObj.create)
-  .put('/', validationHandler(validation.update), userObj.update)
-  .delete('/:id', validationHandler(validation.delete), userObj.delete);
+UserRouter.get(
+  '/',
+  authMiddleWare('TRAINEE', 'read'),
+  validationHandler(validation.get),
+  userObj.get,
+)
+  .post(
+    '/',
+    authMiddleWare('TRAINEE', 'write'),
+    validationHandler(validation.create),
+    userObj.create,
+  )
+  .put(
+    '/',
+    authMiddleWare('TRAINEE', 'write'),
+    validationHandler(validation.update),
+    userObj.update,
+  )
+  .delete(
+    '/:name',
+    authMiddleWare('TRAINEE', 'delete'),
+    validationHandler(validation.delete),
+    userObj.delete,
+  );
 export default UserRouter;

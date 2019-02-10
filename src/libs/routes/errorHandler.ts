@@ -1,5 +1,5 @@
 export default function errorHandler(err, req, res, next) {
-  console.log('in errorhandler');
+  console.log('in errorhandler', err);
   res.json({
     error: err,
     message: 'error',
